@@ -1,68 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
 :root {
-	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
-	font-weight: 400;
-
-	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #242424;
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  --bg:       #07090f;
+  --bg2:      #0e1118;
+  --bg3:      #141824;
+  --border:   rgba(255,255,255,0.07);
+  --gold:     #f5a623;
+  --gold2:    #e8960f;
+  --gold-dim: rgba(245,166,35,0.10);
+  --gold-bdr: rgba(245,166,35,0.30);
+  --red:      #e84545;
+  --green:    #22c55e;
+  --text:     #f1f1f1;
+  --muted:    #6b7280;
+  --radius:   14px;
 }
 
-a {
-	font-weight: 500;
-	color: #646cff;
-	text-decoration: inherit;
-}
-a:hover {
-	color: #535bf2;
-}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
 
 body {
-	margin: 0;
-	display: flex;
-	place-items: center;
-	min-width: 320px;
-	min-height: 100vh;
+  font-family: 'Cairo', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  direction: rtl;
+  text-align: right;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
-h1 {
-	font-size: 3.2em;
-	line-height: 1.1;
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Ticker ── */
+.ticker { background: var(--gold); overflow: hidden; padding: 8px 0; }
+.ticker-track {
+  display: flex;
+  white-space: nowrap;
+  animation: ticker 22s linear infinite;
+}
+.ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #000;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 0 36px;
+}
+.ticker-item::after { content: '•'; opacity: .4; }
+@keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── Container ── */
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* ── Section ── */
+.section { padding: 72px 0; }
+
+/* ── Eyebrow ── */
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
-button {
-	border-radius: 8px;
-	border: 1px solid transparent;
-	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: 500;
-	font-family: inherit;
-	background-color: #1a1a1a;
-	cursor: pointer;
-	transition: border-color 0.25s;
+/* ── Heading ── */
+h1, h2, h3 { line-height: 1.2; font-weight: 900; }
+h1 { font-size: clamp(26px, 5vw, 50px); }
+h2 { font-size: clamp(22px, 4vw, 36px); }
+
+/* ── Badge ── */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 12px; border-radius: 99px;
+  font-size: 12px; font-weight: 700; border: 1px solid;
 }
-button:hover {
-	border-color: #646cff;
+.badge-gold  { background: var(--gold-dim); border-color: var(--gold-bdr); color: var(--gold); }
+.badge-red   { background: rgba(232,69,69,.10); border-color: rgba(232,69,69,.3); color: var(--red); }
+.badge-green { background: rgba(34,197,94,.10); border-color: rgba(34,197,94,.3); color: var(--green); }
+
+/* ── CTA Button ── */
+.btn-cta {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 17px 32px;
+  background: var(--gold); color: #000;
+  font-family: 'Cairo', sans-serif; font-weight: 900; font-size: 17px;
+  border: none; border-radius: var(--radius); cursor: pointer;
+  transition: filter .2s, transform .15s;
+  box-shadow: 0 4px 28px rgba(245,166,35,.3);
 }
-button:focus,
-button:focus-visible {
-	outline: 4px auto -webkit-focus-ring-color;
+.btn-cta:hover  { filter: brightness(1.08); transform: translateY(-2px); }
+.btn-cta:active { transform: translateY(0); }
+.btn-cta:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+/* ── Card ── */
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
 }
 
-@media (prefers-color-scheme: light) {
-	:root {
-		color: #213547;
-		background-color: #ffffff;
-	}
-	a:hover {
-		color: #747bff;
-	}
-	button {
-		background-color: #f9f9f9;
-	}
+/* ── Form ── */
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field label { font-size: 13px; font-weight: 700; color: #9ca3af; }
+.field label span { color: var(--red); }
+.field input, .field select {
+  width: 100%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  padding: 13px 15px;
+  font-family: 'Cairo', sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  direction: rtl;
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+}
+.field input::placeholder { color: var(--muted); }
+.field input:focus, .field select:focus { border-color: var(--gold); }
+.field input.err, .field select.err    { border-color: var(--red); }
+.field .err-msg { font-size: 12px; color: var(--red); display: none; }
+.field .err-msg.show { display: block; }
+.field select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f5a623' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 14px center;
+  padding-left: 36px;
+}
+.field select option { background: var(--bg2); }
+
+/* ── Divider ── */
+.divider { width: 48px; height: 3px; background: var(--gold); border-radius: 99px; margin: 12px auto; }
+
+/* ── Animations ── */
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+@keyframes pulse-ring { 0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,.4)} 50%{box-shadow:0 0 0 10px rgba(245,166,35,0)} }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .section { padding: 52px 0; }
+  .container { padding: 0 16px; }
 }
